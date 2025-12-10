@@ -53,7 +53,8 @@ if user_input:
 
     if HF_AVAILABLE:
         try:
-            classifier = pipeline("sentiment-analysis")
+            # Use a smaller, faster model by default to reduce memory and download time.
+            classifier = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
             result = classifier(user_input)
             label = result[0]["label"]
             score = float(result[0]["score"]) if "score" in result[0] else None
